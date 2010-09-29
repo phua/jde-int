@@ -26,7 +26,7 @@
 ;; Import JDEE projects from Eclipse.
 
 ;; Usage:
-;;   (jde-int-find-and-import-projects "/path/to/workspace")
+;;   M-x jde-int-find-and-import-projects "/path/to/workspace"
 
 ;;; Code:
 
@@ -119,9 +119,8 @@
 
 (defun jde-int-find-and-import-projects (workspace)
   "Import JDEE projects from Eclipse."
+  (interactive "DWorkspace: " workspace)
   (let ((projects (make-hash-table :test #'equal)))
     (jde-int-import-eclipse-projects)
     (jde-int-resolve-project-paths)
     (jde-int-export-jdee-projects)))
-
-;;(jde-int-find-and-import-projects "/tmp/workspace")
