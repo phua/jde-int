@@ -43,12 +43,15 @@
 (defun jde-int-projectpath-entry-p (kind path)
   (and (string= kind "src") (= (string-to-char path) (string-to-char "/"))))
 
-;; FIXME
 (defun jde-int-absolute-path (project-file-path path)
-  (if (or (= (string-to-char path) (string-to-char "/"))
-	  (= (string-to-char path) (string-to-char "\\"))) ; Windows network path
+  (if (file-name-absolute-p path)
       path
     (concat project-file-path path)))
+
+(defun jde-int-relative-path (files path)
+  (mapcar #'(lambda (file)
+	      (file-relative-name (expand-file-name file) path))
+	  files))
 
 (defun jde-int-parse-classpath-file (classpath-file)
   (when (file-exists-p classpath-file)
@@ -109,9 +112,11 @@
   (with-temp-file (format "%sprj.el" (gethash 'project-file-path attrs))
     (insert "(jde-project-file-version \"1.0\")\n(jde-set-variables\n")
     (insert " '(jde-sourcepath\n   (quote ")
-    (insert (prin1-to-string (gethash 'sourcepath attrs)))
+    ;;(insert (prin1-to-string (gethash 'sourcepath attrs)))
+    (insert (prin1-to-string (jde-int-relative-path (gethash 'sourcepath attrs) (gethash 'project-file-path attrs))))
     (insert "))\n '(jde-global-classpath\n   (quote ")
-    (insert (prin1-to-string (gethash 'global-classpath attrs)))
+    ;;(insert (prin1-to-string (gethash 'global-classpath attrs)))
+    (insert (prin1-to-string (jde-int-relative-path (gethash 'global-classpath attrs) (gethash 'project-file-path attrs))))
     (insert ")))\n")))
 
 (defun jde-int-export-jdee-projects ()
