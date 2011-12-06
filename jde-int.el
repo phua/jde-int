@@ -50,8 +50,13 @@
 
 (defun jde-int-relative-path (files path)
   (mapcar #'(lambda (file)
-	      (file-relative-name (expand-file-name file) path))
+	      (jde-int-fix-relative-path (file-relative-name (expand-file-name file) path)))
 	  files))
+
+(defun jde-int-fix-relative-path (path)
+  (if (string= (substring path 0 1) ".")
+      path
+    (concat "./" path)))
 
 (defun jde-int-parse-classpath-file (classpath-file)
   (when (file-exists-p classpath-file)
