@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="${project.name}" default="dist" basedir=".">
+  <description>
+    build file
+  </description>
+
+  <property file="build.properties" />
+
+  <property name="src" location="src/main/java" />
+  <property name="lib" location="src/main/resources" /> <!-- ~/.m2/repository -->
+  <property name="build" location="target/classes" />
+  <property name="dist" location="target" />
+
+  <property name="test.src" location="src/test/java" />
+  <property name="test.lib" location="src/test/resources" /> <!-- ~/.m2/repository -->
+  <property name="test.build" location="target/test/classes" />
+  <property name="test.report" location="target/test/junit" />
+
+  <path id="classpath.compile">
+    <fileset dir="${lib}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <path id="classpath.runtime">
+    <path refid="classpath.compile" />
+    <pathelement location="${build}" />
+  </path>
+
+  <path id="classpath.testing">
+    <path refid="classpath.runtime" />
+    <fileset dir="${test.lib}">
+      <include name="**/*.jar" />
+    </fileset>
+    <pathelement location="${test.build}" />
+  </path>
+
+  <target name="init">
+    <tstamp />
+  </target>
+
+  <target name="compile" depends="init" description="compile the source">
+    <mkdir dir="${build}" />
+    <javac srcdir="${src}" destdir="${build}" classpathref="classpath.compile" includeantruntime="yes" />
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution">
+    <mkdir dir="${dist}/lib" />
+    <jar jarfile="${dist}/lib/${project.name}-${DSTAMP}.jar" basedir="${build}">
+      <manifest>
+        <attribute name="Built-By" value="${user.name}" />
+        <attribute name="Main-Class" value="${main.class}" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean" description="clean up">
+    <delete dir="${build}" />
+    <delete dir="${dist}" />
+  </target>
+
+  <target name="run" depends="compile" description="run application">
+    <java fork="true" classname="${main.class}" classpathref="classpath.runtime" />
+  </target>
+
+  <!-- Unit Testing -->
+
+  <target name="compile-tests" depends="compile" description="compile unit tests">
+    <mkdir dir="${test.build}" />
+    <javac srcdir="${test.src}" destdir="${test.build}" classpathref="classpath.testing" includeantruntime="yes" />
+  </target>
+
+  <target name="junit" depends="compile-tests" description="run unit tests">
+    <mkdir dir="${test.report}" />
+    <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+      <classpath>
+        <path refid="classpath.testing" />
+      </classpath>
+      <formatter type="xml" />
+      <batchtest fork="yes" todir="${test.report}">
+        <fileset dir="${test.src}" includes="**/*Test.java" />
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="junitreport" depends="junit" description="generate unit test reports">
+    <junitreport todir="${test.report}">
+      <fileset dir="${test.report}" includes="Test-*.xml" />
+      <report todir="${test.report}" />
+    </junitreport>
+  </target>
+
+  <target name="antstructure" description="generate incomplete dtd">
+    <antstructure output="project.dtd" />
+  </target>
+</project>
