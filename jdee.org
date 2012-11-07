@@ -1,0 +1,298 @@
+* Java Development in Emacs
+** Requirements
+- [[http://www.gnu.org/software/emacs/][GNU Emacs]]
+- [[http://cedet.sourceforge.net/][Collection of Emacs Development Environment Tools]]
+- [[http://ecb.sourceforge.net/][Emacs Code Browser]]
+- [[http://sourceforge.net/projects/jdee/][Emacs Lisp Library]] (Deprecated)
+- [[http://sourceforge.net/projects/jdee/][Java Development Environment for Emacs]]
+- [[http://www.oracle.com/technetwork/java/index.html][Java Development Kit]]
+*** Optional
+- [[http://www.xref-tech.com/xrefactory/main.html][Xrefactory]]
++ [[http://flymake.sourceforge.net/][Flymake]]
+  - [[http://www.eclipse.org/jdt/core/dev.php][Eclipse Compiler for Java (JDT Core)]]
+  - [[http://www.emacswiki.org/cgi-bin/emacs/jde-eclipse-compiler-server.el][jde-ecl-compile-server.el]]
+- [[http://code.google.com/p/jdibug/][jdibug]]
+- [[http://jdee.sourceforge.net/contrib/decompile.el][decompile.el]]
+** Getting Help
+| Key   | Command                |
+|-------+------------------------|
+| C-h m | describe-mode          |
+| C-h b | describe-bindings      |
+|       | customize-variable     |
+| F10   | menu-bar-open          |
+|-------+------------------------|
+|       | jde-keys               |
+|       | jde-bug-keys           |
+| C-h v | jde-key-bindings       |
+|       | jde-customize-variable |
+** Create, Compile, Debug, Run, Build
+Source: beanshell.el, jde-bsh.el,
+jde-compile.el, jde-db.el, jde-bug.el, jde-dbs.el, jde-dbo.el, jde-run.el,
+jde-make.el, jde-ant.el
+
+| Key             | Command                              | Description                                       |
+|-----------------+--------------------------------------+---------------------------------------------------|
+|                 | jde-compile-jde                      |                                                   |
+|-----------------+--------------------------------------+---------------------------------------------------|
+|                 | jde-create-new-project               | jde-project-file-name                             |
+| C-c C-v C-p     | jde-save-project                     |                                                   |
+|                 | jde-toggle-project-context-switching |                                                   |
+| C-c C-v C-j     | jde-beanshell                        |                                                   |
+|                 | jde-bsh-run                          |                                                   |
+|                 | jde-bsh-exit                         |                                                   |
+| C-c C-v C-c     | jde-compile                          | jde-compiler, jde-compile-*, jde-compile-option-* |
+| C-c C-v C-d     | jde-debug                            | jde-jdb-*, jde-debug-*                            |
+| C-c C-v C-r     | jde-run                              | jde-run-*, jde-run-option-*                       |
+| C-u - C-c C-r   |                                      | jde-run-application-class                         |
+| C-u C-c C-v C-r |                                      | jde-run-option-application-args                   |
+| C-c C-v C-b     | jde-build                            | jde-build-function, jde-make-*, jde-ant-*         |
+** Editing Code
+Source: jde-complete.el, jde-import.el, jtags
+
+| Key         | Command                       |
+|-------------+-------------------------------|
+| M-/         | dabbrev-expand                |
+|             | hippie-expand                 |
+|-------------+-------------------------------|
+| C-c C-v C-. | jde-complete                  |
+| C-c C-v .   | jde-complete-in-line          |
+|             | jde-complete-menu             |
+|             | jde-complete-minibuf          |
+|-------------+-------------------------------|
+| C-c C-v C-z | jde-import-find-and-import    |
+| C-c C-v z   | jde-import-all                |
+|             | jde-import-all-unique         |
+|             | jde-import-expand-imports     |
+|             | jde-import-collapse-imports   |
+|             | jde-import-organize           |
+|             | jde-import-kill-extra-imports |
+** Generating Code
+Source: jde-wiz.el, jde-gen.el
+
+| Key         | Command                       |
+|-------------+-------------------------------|
+| C-c C-v o   | jde-wiz-overrided-method      |
+| C-c C-v c   | jde-wiz-implement-interface   |
+|             | jde-wiz-delegate              |
+|             | jde-wiz-get-set-methods       |
+| C-c C-v C-q | jde-wiz-update-class-list     |
+|-------------+-------------------------------|
+|             | jde-gen-get-set               |
+| C-c C-v C-l | jde-gen-println               |
+|             | jde-gen-action-listener       |
+|             | jde-gen-window-listener       |
+|             | jde-gen-mouse-listener        |
+|             | jde-gen-mouse-motion-listener |
+|             | jde-gen-to-string-method      |
+| C-c C-v t   | jde-gen-try-catch-wrapper     |
+| C-c C-v f   | jde-gen-try-finally-wrapper   |
+*** Abbreviations
+C-h v jde-mode-abbreviations
+
+| Abbrev  | Expansion          |
+|---------+--------------------|
+| if      | if                 |
+| else    | else               |
+| ife     | if-else            |
+| eif     | else-if            |
+| while   | while              |
+| for     | for                |
+| fori    | for (int ...)      |
+| foriter | for (Iterator ...) |
+| main    | main               |
+| switch  | switch             |
+| case    | case               |
+| try     | try                |
+| catch   | catch              |
+| tryf    | try...finally      |
+| finally | finally            |
+*** TODO Templates
+** Browsing Code
+| Key         | Command                        |
+|-------------+--------------------------------|
+|             | imenu                          |
+|-------------+--------------------------------|
+|             | M-x shell; cd <basedir>; jtags |
+| M-.         | find-tag                       |
+| C-M-.       | find-tag-regexp                |
+| M-*         | pop-tag-mark                   |
+|             | tags-search                    |
+|             | tags-query-replace             |
+| M-,         | tags-loop-continue             |
+|             | list-tags                      |
+|             | tags-apropos                   |
+|-------------+--------------------------------|
+| C-c C-v C-f | jde-find                       |
+|             | jde-find-dlg                   |
+|             | jde-find-class-source          |
+|-------------+--------------------------------|
+| C-c C-v C-y | jde-open-class-at-point        |
+| C-c C-c b   | jde-open-class-at-source       |
+| C-c C-v C-x | jde-show-superclass-source     |
+*** Speedbar
+| Key         | Command                             |
+|-------------+-------------------------------------|
+| C-c C-v C-s | speedbar                            |
+|-------------+-------------------------------------|
+| Q           | delete-frame                        |
+| q           | delete-close-frame                  |
+| g           | speedbar-refresh                    |
+| t           | speedbar-toggle-updates             |
+| p           | speedbar-prev                       |
+| M-p         | speedbar-restricted-prev            |
+| C-M-p       | speedbar-backward-list              |
+| n           | speedbar-next                       |
+| M-n         | speedbar-restricted-next            |
+| C-n         | speedbar-forward-list               |
+|-------------+-------------------------------------|
+| b           | dframe-switch-buffer-attached-frame |
+| f           | file mode                           |
+| r           | revert to last mode                 |
+|-------------+-------------------------------------|
+| e           | speedbar-edit-line                  |
+| +, =        | speedbar-expand-line                |
+| -           | speedbar-contract-line              |
+|-------------+-------------------------------------|
+| U           | speedbar-up-directory               |
+| I           | speedbar-item-info                  |
+| B           | speedbar-item-byte-compile          |
+| L           | speedbar-item-load                  |
+| C           | speedbar-item-copy                  |
+| R           | speedbar-item-rename                |
+| d           | speedbar-item-delete                |
+| O           | speedbar-item-object-delete         |
+| M           | speedbar-create-directory           |
+|-------------+-------------------------------------|
+| . C         | ede-speedbar-compile-project        |
+| . a         | ede-speedbar-file-add-to-project    |
+| . c         | ede-speedbar-compile-file-target    |
+| . d         | ede-make-dist                       |
+| . s         | ede-speedbar                        |
+| . t         | ede-new-target                      |
+*** Emacs Code Browser
+| Key       | Command                     |
+|-----------+-----------------------------|
+|           | ecb-activate                |
+|-----------+-----------------------------|
+| C-c . g d | ecb-goto-window-directories |
+| C-c . g s | ecb-goto-window-sources     |
+| C-c . g m | ecb-goto-window-methods     |
+| C-c . g h | ecb-goto-window-history     |
+| C-c . g l | ecb-goto-window-edit-last   |
+|-----------+-----------------------------|
+| C-c . \   | ecb-toggle-compile-window   |
+|           | ecb-toggle-ecb-windows      |
+|           | ecb-hide-ecb-windows        |
+|           | ecb-show-ecb-windows        |
+** Documenting Code
+Source: jde-javadoc.el
+
+| Key         | Command                     | Eclipse+    |
+|-------------+-----------------------------+-------------|
+| C-c C-v j   | jde-javadoc-autodoc-at-line | Alt-Shift-; |
+|             | jde-javadoc-make            |             |
+|-------------+-----------------------------+-------------|
+| C-c C-v C-n | jde-browse-jdk-doc          |             |
+|             |                             |             |
+|             | jde-browse-class            |             |
+|             | jde-browse-class-at-point   |             |
+** Cross-Referencing
+Source: jde-xref.el
+
+(run-at-time "11:00pm" 86400 'jde-xref-make-xref-db)
+
+| Key       | Command                          | Description                          |
+|-----------+----------------------------------+--------------------------------------|
+|           | jde-xref-make-xref-db            | jde-xref-db-base-directory           |
+|           |                                  | jde-xref-store-prefixes              |
+|           |                                  | jde-xref-cache-size                  |
+| C-c C-v a | jde-xref-first-caller            | prefix "C-u M-x" for non-strict mode |
+| C-c C-v n | jde-xref-next-caller             |                                      |
+|           | jde-xref-display-call-tree       |                                      |
+|           | jde-xref-list-uncalled-functions |                                      |
+*** Xrefactory
+M-x describe-variable xref-key-binding
+
+| Key  | Command                             |
+|------+-------------------------------------|
+| F3   | xref-previous-reference             |
+| F4   | xref-next-reference                 |
+| F5   | xref-pop-and-return                 |
+| F6   | xref-push-and-goto-definition       |
+| F7   | xref-delete-window                  |
+| F8   | xref-completion                     |
+| F11  | xref-refactor                       |
+|------+-------------------------------------|
+| C-F3 | xref-alternative-previous-reference |
+| C-F4 | xref-alternative-next-reference     |
+| C-F5 | xref-re-push                        |
+| C-F6 | xref-browse-symbol                  |
+| C-F7 | xref-                               |
+| C-F8 | xref-ide-compile-run                |
+**** TODO .xrefrc
+- Create TAGS file
+  + xref [-update] -p <project> [-debug] [-errors]
+- Create JavaDoc
+  + xref -html -nostdop -nocxfile -htmlroot=${HOME}/HMTL -htmlgxlist *.java
+  + xref [-update] -html -p <project>
+** Debugging Code
+| Key         | Command                |
+|-------------+------------------------|
+| C-c C-v C-[ | jde-run-etrace-prev    |
+| C-c C-v C-] | jde-run-etrace-next    |
+|-------------+------------------------|
+| [C-u] C-x ` | next-error             |
+| C-c C-c     | compilation-goto-error |
+| M-n         |                        |
+| M-p         |                        |
+| <SPC>       |                        |
+| <DEL>       |                        |
+*** TODO jdb or JDEBug
+(jde-compile-option-debug '("all", (t t t)))
+(jde-db-option-connect-socket '(nil "28380"))
+
+| Key         | Command                        |
+|-------------+--------------------------------|
+| C-c C-v C-d | jde-debug                      |
+|             | jde-debug-quit                 |
+|-------------+--------------------------------|
+| C-c C-a C-s | jde-bug-step-over              |
+| C-c C-a C-n | jde-debug-step-into            |
+| C-c C-a C-o | jde-debug-step-out             |
+| C-c C-a C-c | jde-debug-cont                 |
+| C-c C-a C-b | jde-debug-toggle-breakpoint    |
+|-------------+--------------------------------|
+|             | jde-bug-display-variable       |
+|             | jde-bug-toggle-local-variables |
+|-------------+--------------------------------|
+| C-c C-a C-p |                                |
+| C-c C-a C-d |                                |
+*** TODO jdibug
+(add-to-list 'load-path "/path/to/jdibug")
+(require 'jdibug)
+
+In prj.el,
+(setq jdibug-connect-host ...
+jdibug-connect-port ...)
+
+(define jde-mode-map [f8] 'jdibug-step-over)
+(define jde-mode-map [M-f8] 'jdibug-step-into)
+(define jde-mode-map [f7] 'jdibug-step-out)
+(define jde-mode-map [M-f7] 'jdibug-resume)
+
+| Key         | Command               |
+|-------------+-----------------------|
+| C-c C-c C-c | jdibug-connect        |
+| C-c C-c C-d | jdibug-disconnect     |
+|-------------+-----------------------|
+| C-c C-c C-n | jdibug-step-over      |
+| C-c C-c C-i | jdibug-step-into      |
+| C-c C-c C-o | jdibug-step-out       |
+| C-c C-c C-r | jdibug-resume         |
+| C-c C-c C-b | jdi-toggle-breakpoint |
+** Flymake
+| Key | Command                                 |
+|-----+-----------------------------------------|
+|     | flymake-goto-next-error                 |
+|     | flymake-goto-previous-error             |
+|     | flymake-display-err-menu-for-completion |
