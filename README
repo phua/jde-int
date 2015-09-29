@@ -1,0 +1,3 @@
+Import JDEE projects from Eclipse.
+
+M-x jde-int-find-and-import-projects "/path/to/workspace"
