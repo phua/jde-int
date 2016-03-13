@@ -2,14 +2,14 @@
 (jdee-set-variables
  '(jdee-jdk-registry (quote (("1.7" . "/usr/lib/jvm/java-7-openjdk")
                              ("1.8" . "/usr/lib/jvm/java-8-openjdk"))))
- '(jdee-jdk (quote ("1.7")))
- '(jdee-jdk-doc-url "http://docs.oracle.com/javase/7/docs/api")
+ '(jdee-jdk (quote ("1.8")))
+ '(jdee-jdk-doc-url "http://docs.oracle.com/javase/8/docs/api")
  '(jdee-help-docsets (quote ((nil "http://docs.oracle.com/javase/7/docs/api" "1.7")
                              (nil "http://docs.oracle.com/javase/8/docs/api" "1.8")
                              (nil "https://developer.android.com/reference"))))
- '(jdee-enable-abbrev-mode t)
+ '(jdee-enable-abbrev-mode nil)
  '(jdee-gen-k&r t)
- '(jdee-gen-cflow-enable t)
+ '(jdee-gen-cflow-enable nil)
  '(jdee-complete-function (quote jdee-complete-minibuf))
  '(jdee-electric-return-p t)
  '(jdee-import-auto-collapse-imports nil)
@@ -21,7 +21,7 @@
  ;; '(jdee-expand-classpath-p t)
  ;; '(jdee-lib-directory-names (quote ("/lib$" "/jar$")))
 
- '(jdee-server-dir "$HOME/workspaces/forks/jdee-server/target")
+ '(jdee-server-dir "~/workspaces/forks/jdee-server/target/")
 
  ;; JDE Compile Option Group
 
@@ -40,7 +40,7 @@
 
  '(jdee-compile-enable-kill-buffer nil)
 
- ;; JDE Build Option Group
+ ;; JDEE Build Option Group
 
  '(jdee-build-function (quote jdee-ant-build))
 
@@ -57,7 +57,7 @@
  '(jdee-ant-enable-find t)
  '(jdee-ant-complete-target t)
 
- ;; JDE Run Option Group
+ ;; JDEE Run Option Group
 
  '(jdee-run-working-directory ".")
  '(jdee-run-application-class "com.example.Main")
@@ -76,25 +76,25 @@
  ;; '(jdee-run-option-debug (quote ("Server" "Socket" "javadebug" "localhost" "6001" "Yes")))
  '(jdee-run-option-application-args nil)
 
- ;; JDE Debug Option Group
+ ;; JDEE Debug Option Group
 
  '(jdee-debugger (quote ("jdb")))
  '(jdee-db-read-vm-args nil)
  '(jdee-db-read-app-args nil)
  '(jdee-db-option-vm-args nil)
  '(jdee-db-option-application-args nil)
- '(jdee-db-option-host nil)
 
- ;; (jdee-db-option-connect-socket '(nil "28380"))
+ ;; (jdee-db-option-connect-socket '(nil "6001"))
+ ;; (jdee-db-option-connect-shared-memory-name "javadebug")
 
- ;; JDE JUnit Option Group
+ ;; JDEE JUnit Option Group
 
  '(jdee-junit-working-directory jdee-run-working-directory)
  ;; '(jdee-junit-testrunner-type "junit.textui.TestRunner")
  '(jdee-junit-testrunner-type "org.junit.runner.JUnitCore")
  '(jdee-junit-tester-name-tag '("Test" . "Suffix"))
 
- ;; JDE Autocode Option Group
+ ;; JDEE Autocode Option Group
 
  '(jdee-gen-buffer-boilerplate
    (quote ("/**"
@@ -105,13 +105,13 @@
            " */")))
  )
 
-;; JDE Cross-Reference Database
+;; JDEE Cross-Reference Database
 
 ;; '(jdee-xref-db-base-directory "./xrefdb")
 ;; '(jdee-xref-store-prefixes (quote ("com.example")))
 ;; '(jdee-xref-cache-size 3))
 
-;; JDE Abbreviation Templates
+;; JDEE Abbreviation Templates
 
 (jdee-gen-define-abbrev-template "melse"  '('> "else {" '> 'n '> 'r 'n "}"))
 
