@@ -1,9 +1,9 @@
 (jdee-project-file-version "1.0")
 (jdee-set-variables
- '(jdee-compile-option-directory "./target/classes")
+ '(jdee-compile-option-directory "./target/main/classes")
  '(jdee-ant-args "-Dproject.name=Example -emacs")
  '(jdee-ant-buildfile "build.xml")
- '(jdee-ant-read-buildfile t)
+ '(jdee-ant-read-buildfile nil)
  '(jdee-ant-read-target t)
  '(jdee-ant-interactive-buildfile "build.xml")
  '(jdee-run-working-directory ".")
@@ -15,8 +15,8 @@
  '(jdee-junit-working-directory jdee-run-working-directory)
 
  '(jdee-sourcepath (quote ("./src/main/java" "./src/test/java" "$JAVA_HOME/src.zip")))
- '(jdee-global-classpath (quote ("./src/main/java" "./src/main/resources" "./target/classes" "./src/test/java" "./src/test/resources" "./target/test/classes")))
- '(jdee-built-class-path (quote ("./target/classes" "./target/test/classes")))
+ '(jdee-global-classpath (quote ("./src/main/java" "./src/main/resources" "./target/main/classes" "./src/test/java" "./src/test/resources" "./target/test/classes")))
+ '(jdee-built-class-path (quote ("./target/main/classes" "./target/test/classes")))
 
  '(jdee-xref-db-base-directory "./xrefdb")
  '(jdee-xref-store-prefixes (quote ("com.example")))

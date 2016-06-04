@@ -103,13 +103,14 @@
            " * @author phua"
            " * @version 1.0"
            " */")))
+
+ ;; JDEE Cross-Reference Database
+
+ ;; '(jdee-xref-db-base-directory "./xrefdb")
+ ;; '(jdee-xref-store-prefixes (quote ("com.example")))
+ ;; '(jdee-xref-cache-size 3))
+
  )
-
-;; JDEE Cross-Reference Database
-
-;; '(jdee-xref-db-base-directory "./xrefdb")
-;; '(jdee-xref-store-prefixes (quote ("com.example")))
-;; '(jdee-xref-cache-size 3))
 
 ;; JDEE Abbreviation Templates
 

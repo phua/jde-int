@@ -9,13 +9,13 @@
 
   <property name="src" location="src/main/java" />
   <property name="lib" location="src/main/resources" />
-  <property name="build" location="target/classes" />
+  <property name="build" location="target/main/classes" />
   <property name="dist" location="target" />
 
-  <property name="test.src" location="src/test/java" />
-  <property name="test.lib" location="src/test/resources" />
-  <property name="test.build" location="target/test/classes" />
-  <property name="test.report" location="target/test/junit" />
+  <property name="src.test" location="src/test/java" />
+  <property name="lib.test" location="src/test/resources" />
+  <property name="build.test" location="target/test/classes" />
+  <property name="report.test" location="target/test/report" />
 
   <path id="classpath.compile">
     <fileset dir="${lib}">
@@ -30,10 +30,10 @@
 
   <path id="classpath.testing">
     <path refid="classpath.runtime" />
-    <fileset dir="${test.lib}">
+    <fileset dir="${lib.test}">
       <include name="**/*.jar" />
     </fileset>
-    <pathelement location="${test.build}" />
+    <pathelement location="${build.test}" />
   </path>
 
   <target name="init">
@@ -42,12 +42,15 @@
 
   <target name="compile" depends="init" description="compile the source">
     <mkdir dir="${build}" />
-    <javac srcdir="${src}" destdir="${build}" classpathref="classpath.compile" includeantruntime="yes" />
+    <javac srcdir="${src}" destdir="${build}" classpathref="classpath.compile" includeantruntime="yes">
+      <compilerarg value="-Xlint" />
+      <compilerarg value="-XDignore.symbol.file" />
+    </javac>
   </target>
 
   <target name="dist" depends="compile" description="generate the distribution">
-    <mkdir dir="${dist}/lib" />
-    <jar jarfile="${dist}/lib/${project.name}-${DSTAMP}.jar" basedir="${build}">
+    <mkdir dir="${dist}" />
+    <jar jarfile="${dist}/${project.name}-${DSTAMP}.jar" basedir="${build}">
       <manifest>
         <attribute name="Built-By" value="${user.name}" />
         <attribute name="Main-Class" value="${main.class}" />
@@ -56,7 +59,6 @@
   </target>
 
   <target name="clean" description="clean up">
-    <delete dir="${build}" />
     <delete dir="${dist}" />
   </target>
 
@@ -65,27 +67,27 @@
   </target>
 
   <target name="compile-tests" depends="compile" description="compile unit tests">
-    <mkdir dir="${test.build}" />
-    <javac srcdir="${test.src}" destdir="${test.build}" classpathref="classpath.testing" includeantruntime="yes" />
+    <mkdir dir="${build.test}" />
+    <javac srcdir="${src.test}" destdir="${build.test}" classpathref="classpath.testing" includeantruntime="yes" />
   </target>
 
   <target name="junit" depends="compile-tests" description="run unit tests">
-    <mkdir dir="${test.report}" />
+    <mkdir dir="${report.test}" />
     <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
       <classpath>
         <path refid="classpath.testing" />
       </classpath>
       <formatter type="xml" />
-      <batchtest fork="yes" todir="${test.report}">
-        <fileset dir="${test.src}" includes="**/*Test.java" />
+      <batchtest fork="yes" todir="${report.test}">
+        <fileset dir="${src.test}" includes="**/*Test.java" />
       </batchtest>
     </junit>
   </target>
 
   <target name="junitreport" depends="junit" description="generate unit test reports">
-    <junitreport todir="${test.report}">
-      <fileset dir="${test.report}" includes="Test-*.xml" />
-      <report todir="${test.report}" />
+    <junitreport todir="${report.test}">
+      <fileset dir="${report.test}" includes="Test-*.xml" />
+      <report todir="${report.test}" />
     </junitreport>
   </target>
 
